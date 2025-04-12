@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from domain.entities.player import Player
+from src.domain.entities.player import Player
 
 
 class PlayerRepository(ABC):
@@ -9,5 +9,5 @@ class PlayerRepository(ABC):
         pass
 
     @abstractmethod
-    async def save(self, player: Player):
+    async def save(self, player: Player) -> None:
         pass

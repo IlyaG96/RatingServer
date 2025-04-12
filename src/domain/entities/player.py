@@ -1,3 +1,6 @@
+from src.domain.repositories.player_repository import PlayerRepository
+
+
 class Player:
     def __init__(self, player_id: str, rating: int, nickname: str):
         self._player_id = player_id
@@ -8,6 +11,6 @@ class Player:
         """Обновление рейтинга игрока."""
         self._rating = new_rating
 
-    async def persist(self, repository) -> None:
+    async def persist(self, repository: PlayerRepository) -> None:
         """Сохранение через репозиторий."""
         await repository.save(self)
