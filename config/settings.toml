@@ -1,0 +1,7 @@
+[default]
+database_url = "sqlite:///database.db"
+kafka_bootstrap_servers = "localhost:9092"
+
+[production]
+DATABASE_URL = "postgresql://user:pass@host:5432/db"
+kafka_bootstrap_servers = "localhost:9092"
