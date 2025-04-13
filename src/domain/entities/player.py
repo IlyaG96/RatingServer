@@ -1,9 +1,14 @@
+from typing import TYPE_CHECKING
+
 from pydantic import BaseModel, Field
 
-from src.domain.repositories.player_repository import PlayerRepository
 from src.domain.value_objects.nickname import Nickname
 from src.domain.value_objects.player_id import PlayerId
 from src.domain.value_objects.rating import Rating
+
+
+if TYPE_CHECKING:
+    from src.domain.repositories.player_repository import PlayerRepository
 
 
 class Player(BaseModel):
@@ -15,6 +20,6 @@ class Player(BaseModel):
         """Обновление рейтинга игрока."""
         self.rating = new_rating
 
-    async def persist(self, repository: PlayerRepository) -> None:
+    async def persist(self, repository: 'PlayerRepository') -> None:
         """Сохранение через репозиторий."""
-        await repository.save(self)
+        await repository.persist(self)
