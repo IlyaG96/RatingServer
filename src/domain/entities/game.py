@@ -1,16 +1,10 @@
-from enum import Enum
 from uuid import UUID
 
 from pydantic import BaseModel, Field
 
 from src.domain.repositories.game_repository import GameRepository
+from src.domain.value_objects.game_result import GameResult
 from src.domain.value_objects.player_id import PlayerId
-
-
-class GameResult(Enum):
-    PLAYER1_WIN = "player1_win"
-    PLAYER2_WIN = "player2_win"
-    DRAW = "draw"
 
 
 class Game(BaseModel):
