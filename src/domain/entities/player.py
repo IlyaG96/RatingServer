@@ -1,15 +1,19 @@
+from pydantic import BaseModel, Field
+
 from src.domain.repositories.player_repository import PlayerRepository
+from src.domain.value_objects.nickname import Nickname
+from src.domain.value_objects.player_id import PlayerId
+from src.domain.value_objects.rating import Rating
 
 
-class Player:
-    def __init__(self, player_id: str, rating: int, nickname: str):
-        self._player_id = player_id
-        self._rating = rating
-        self._nickname = nickname
+class Player(BaseModel):
+    player_id: PlayerId = Field(..., description="Уникальный ID игрока")
+    rating: Rating = Field(..., description="Рейтинг игрока")
+    nickname: Nickname = Field(..., description="Никнейм игрока")
 
     def update_rating(self, new_rating: int) -> None:
         """Обновление рейтинга игрока."""
-        self._rating = new_rating
+        self.rating = new_rating
 
     async def persist(self, repository: PlayerRepository) -> None:
         """Сохранение через репозиторий."""
