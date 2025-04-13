@@ -1,12 +1,13 @@
 import asyncio
-from sqlalchemy.ext.asyncio import create_async_engine
-from alembic import context
 
+from sqlalchemy.engine.base import Connection
+from sqlalchemy.ext.asyncio import create_async_engine
+
+from alembic import context
 from configuration import DATABASE_URL
 from src.infrastructure.database.models.base import Base
 from src.infrastructure.database.models.game import GameModel  # noqa
 from src.infrastructure.database.models.player import PlayerModel  # noqa
-from sqlalchemy.engine.base import Connection
 
 config = context.config
 connectable = create_async_engine(DATABASE_URL, echo=True)

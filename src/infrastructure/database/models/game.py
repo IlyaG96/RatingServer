@@ -1,6 +1,6 @@
-from sqlalchemy import Integer, UUID
+from sqlalchemy import UUID, Enum, Integer
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Enum
+
 from src.domain.value_objects.game_result import GameResult
 from src.infrastructure.database.models.base import Base
 
