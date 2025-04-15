@@ -4,7 +4,7 @@ from src.domain.entities.game import Game
 from src.domain.value_objects.game_id import GameId
 
 
-class GameRepository(ABC):
+class GameRepositoryInterface(ABC):
     @abstractmethod
     async def save(self, game: Game) -> None:
         pass

@@ -5,10 +5,9 @@ from src.domain.entities.player import Player
 from src.domain.value_objects.player_id import PlayerId
 
 
-class PlayerRepository(ABC):
-
+class PlayerRepositoryInterface(ABC):
     @abstractmethod
-    async def get_by_nickname(self, player_id: PlayerId) -> Player:
+    async def get_by_player_id(self, player_id: PlayerId) -> Player:
         pass
 
     @abstractmethod

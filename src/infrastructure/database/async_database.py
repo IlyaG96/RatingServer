@@ -31,4 +31,5 @@ class SQLAlchemyDataBase:
                 await session.rollback()
                 raise
 
+
 database = SQLAlchemyDataBase()
