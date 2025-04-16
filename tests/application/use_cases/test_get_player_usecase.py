@@ -1,4 +1,4 @@
-from unittest.mock import Mock, AsyncMock
+from unittest.mock import AsyncMock, Mock
 
 from src.application.dto.player_dto import GetPlayerDTO
 from src.application.use_cases.get_player import GetPlayer
@@ -6,12 +6,8 @@ from src.domain.exceptions.player import PlayerNotFoundError
 from src.domain.value_objects.player.player_id import PlayerId
 
 
-async def test_get_player_when_player_exists():
-    mocked_player = Mock(
-        nickname="test_nickname",
-        rating=1000,
-        player_id=PlayerId(value=1)
-    )
+async def test_get_player_when_player_exists() -> None:
+    mocked_player = Mock(nickname="test_nickname", rating=1000, player_id=PlayerId(value=1))
     mocked_repo = AsyncMock()
     mocked_repo.get_by_player_nickname = AsyncMock(return_value=mocked_player)
 
@@ -27,7 +23,7 @@ async def test_get_player_when_player_exists():
     assert result.data.player_id == 1
 
 
-async def test_get_player_when_player_does_not_exist():
+async def test_get_player_when_player_does_not_exist() -> None:
     mocked_repo = Mock()
     mocked_repo.get_by_player_nickname = AsyncMock(side_effect=PlayerNotFoundError("Player not found"))
 
