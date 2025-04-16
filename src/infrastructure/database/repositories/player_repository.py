@@ -27,39 +27,44 @@ class PlayerRepository(PlayerRepositoryInterface):
           - DatabaseError: in case of database error.
         """
         query = select(PlayerModel).where(PlayerModel.player_id == player_id)
+        try:
+            async with self.database.get_session() as session:
+                result = await session.execute(query)
+                player = result.scalar_one_or_none()
+        except OperationalError as e:
+            raise DatabaseError(details=str(e)) from e
 
-        async with self.database.get_session() as session:
-            result = await session.execute(query)
-            player = result.scalar_one_or_none()
         if player is None:
             raise PlayerNotFoundError(f"Player with player_id='{player_id}' not found")
         return Player(
             player_id=PlayerId(player.player_id), nickname=Nickname(player.nickname), rating=Rating(player.rating)
         )
 
+
     async def get_by_player_nickname(self, nickname: Nickname) -> Player:
         """
-
         :param nickname:
         :return: Player entity
         :raises
           - PlayerNotFoundError: when player does not exist.
           - DatabaseError: in case of database error.
         """
-        try:
-            query = select(PlayerModel).where(PlayerModel.nickname == nickname)
+        query = select(PlayerModel).where(PlayerModel.nickname == nickname)
 
+        try:
             async with self.database.get_session() as session:
                 result = await session.execute(query)
                 player = result.scalar_one_or_none()
 
-            if player is None:
-                raise PlayerNotFoundError(f"Player with nickname='{nickname}' not found")
-            return Player(
-                player_id=PlayerId(player.player_id), nickname=Nickname(player.nickname), rating=Rating(player.rating)
-            )
         except OperationalError as e:
-            raise DatabaseError from e
+            raise DatabaseError(details=str(e)) from e
+
+        if player is None:
+            raise PlayerNotFoundError(f"Player with nickname='{nickname}' not found")
+        return Player(
+            player_id=PlayerId(player.player_id), nickname=Nickname(player.nickname), rating=Rating(player.rating)
+        )
+
 
     async def persist(self, player: Player) -> None:
         pass

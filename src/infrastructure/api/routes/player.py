@@ -31,5 +31,5 @@ async def get_player_by_nickname(player_nickname: str) -> PlayerResponse | None:
     except DatabaseError as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=str(e),
+            detail=e.details,
         ) from e
