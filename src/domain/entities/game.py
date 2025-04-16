@@ -3,8 +3,8 @@ from uuid import UUID
 from pydantic import BaseModel, Field
 
 from src.domain.repositories.game_repository import GameRepositoryInterface
-from src.domain.value_objects.game_result import GameResult
-from src.domain.value_objects.player_id import PlayerId
+from src.domain.value_objects.game.game_result import GameResult
+from src.domain.value_objects.player.player_id import PlayerId
 
 
 class Game(BaseModel):

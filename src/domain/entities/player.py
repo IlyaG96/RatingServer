@@ -2,9 +2,9 @@ from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, Field
 
-from src.domain.value_objects.nickname import Nickname
-from src.domain.value_objects.player_id import PlayerId
-from src.domain.value_objects.rating import Rating
+from src.domain.value_objects.player.nickname import Nickname
+from src.domain.value_objects.player.player_id import PlayerId
+from src.domain.value_objects.player.rating import Rating
 
 if TYPE_CHECKING:
     from src.domain.repositories.player_repository import PlayerRepositoryInterface
