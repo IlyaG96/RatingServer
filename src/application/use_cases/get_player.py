@@ -7,7 +7,7 @@ from src.infrastructure.api.schemas.player import PlayerResponse
 
 
 class GetPlayerResult(UseCaseResult):
-    result: PlayerResponse | None
+    data: PlayerResponse | None
     error: PlayerNotFoundError | None
 
 
@@ -19,10 +19,10 @@ class GetPlayer(UseCase):
         try:
             response = await self.player_repository.get_by_player_nickname(nickname=Nickname(get_player_dto.nickname))
             return GetPlayerResult(
-                result=PlayerResponse(
+                data=PlayerResponse(
                     nickname=response.nickname, rating=response.rating, player_id=response.player_id.value
                 ),
                 error=None,
             )
         except PlayerNotFoundError as e:
-            return GetPlayerResult(result=None, error=e)
+            return GetPlayerResult(data=None, error=e)

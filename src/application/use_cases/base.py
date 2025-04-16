@@ -22,5 +22,5 @@ ExceptionT = TypeVar("ExceptionT", bound=ExceptionWithDetails)
 
 @dataclass(frozen=True)
 class UseCaseResult(Generic[ResultT, ExceptionT]):
-    result: ResultT | None
+    data: ResultT | None
     error: ExceptionT | None

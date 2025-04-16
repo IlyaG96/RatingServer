@@ -14,5 +14,5 @@ class PlayerResponse(BaseModel):
     nickname: str = Field(..., description="Никнейм игрока")
     rating: int = Field(..., description="Рейтинг игрока")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True

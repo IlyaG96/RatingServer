@@ -40,7 +40,6 @@ class PlayerRepository(PlayerRepositoryInterface):
             player_id=PlayerId(player.player_id), nickname=Nickname(player.nickname), rating=Rating(player.rating)
         )
 
-
     async def get_by_player_nickname(self, nickname: Nickname) -> Player:
         """
         :param nickname:
@@ -64,7 +63,6 @@ class PlayerRepository(PlayerRepositoryInterface):
         return Player(
             player_id=PlayerId(player.player_id), nickname=Nickname(player.nickname), rating=Rating(player.rating)
         )
-
 
     async def persist(self, player: Player) -> None:
         pass
