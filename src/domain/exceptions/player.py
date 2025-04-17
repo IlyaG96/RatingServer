@@ -8,3 +8,12 @@ class PlayerNotFoundError(Exception, ExceptionWithDetails):
     @property
     def details(self) -> str:
         return self._details
+
+
+class PlayerAlreadyExistsError(Exception, ExceptionWithDetails):
+    def __init__(self, details: str) -> None:
+        self._details = details
+
+    @property
+    def details(self) -> str:
+        return self._details

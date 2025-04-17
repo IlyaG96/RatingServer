@@ -20,5 +20,5 @@ class PlayerRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    async def create(self, player: PlayerCreationData) -> None:  # FIXME
+    async def create(self, player: PlayerCreationData) -> None:
         pass

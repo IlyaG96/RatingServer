@@ -3,8 +3,8 @@ from fastapi import APIRouter, HTTPException, status
 from src.application.dto.player_dto import CreatePlayerDTO, GetPlayerDTO
 from src.application.use_cases.create_player import CreatePlayer
 from src.application.use_cases.get_player import GetPlayer
-from src.di_container import dependency_container
-from src.infrastructure.api.schemas.player import CreatePlayerRequest, PlayerResponse
+from src.infrastructure.di.di_container import dependency_container
+from src.presentation.api.schemas.player import CreatePlayerRequest, PlayerResponse
 from src.infrastructure.exceptions.database import DatabaseError
 
 router = APIRouter(prefix="/players", tags=["Players"])

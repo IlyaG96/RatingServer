@@ -7,4 +7,4 @@ class DatabaseError(Exception, ExceptionWithDetails):
 
     @property
     def details(self) -> str:
-        return self.details
+        return self._details
