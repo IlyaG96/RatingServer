@@ -2,6 +2,7 @@
 lint:
 	ruff check .
 	mypy .
+	bandit -r src
 
 .PHONY: format
 format:

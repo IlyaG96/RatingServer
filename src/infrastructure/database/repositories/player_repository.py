@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError, OperationalError
 
 from src.domain.entities.player import Player
-from src.domain.exceptions.player import PlayerNotFoundError, PlayerAlreadyExistsError
+from src.domain.exceptions.player import PlayerAlreadyExistsError, PlayerNotFoundError
 from src.domain.repositories.player_repository import PlayerRepositoryInterface
 from src.domain.value_objects.player.nickname import Nickname
 from src.domain.value_objects.player.player_creation_data import PlayerCreationData
@@ -100,7 +100,7 @@ class PlayerRepository(PlayerRepositoryInterface):
             async with self.database.get_session() as session:
                 session.add(player_model)
                 await session.commit()
-        except IntegrityError:
-            raise PlayerAlreadyExistsError(f"Player with nickname='{player.nickname}' already exists")
+        except IntegrityError as e:
+            raise PlayerAlreadyExistsError(f"Player with nickname='{player.nickname}' already exists") from e
         except OperationalError as e:
             raise DatabaseError(details=str(e)) from e

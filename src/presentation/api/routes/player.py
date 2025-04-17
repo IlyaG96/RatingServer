@@ -4,8 +4,8 @@ from src.application.dto.player_dto import CreatePlayerDTO, GetPlayerDTO
 from src.application.use_cases.create_player import CreatePlayer
 from src.application.use_cases.get_player import GetPlayer
 from src.infrastructure.di.di_container import dependency_container
-from src.presentation.api.schemas.player import CreatePlayerRequest, PlayerResponse
 from src.infrastructure.exceptions.database import DatabaseError
+from src.presentation.api.schemas.player import CreatePlayerRequest, PlayerResponse
 
 router = APIRouter(prefix="/players", tags=["Players"])
 
@@ -27,7 +27,13 @@ async def get_player_by_nickname(player_nickname: str) -> PlayerResponse | None:
         if result.error:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=result.error.details)
 
-        return result.data
+        if result.data:
+            return PlayerResponse(
+                player_id=result.data.player_id,
+                nickname=result.data.nickname,
+                rating=result.data.rating
+            )
+        return None
     except DatabaseError as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,

@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
-from src.presentation.api import router as player_router
+from src.presentation.api.routes.player import router as player_router
 
 app = FastAPI()
 app.include_router(router=player_router)
