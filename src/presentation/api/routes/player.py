@@ -20,7 +20,7 @@ async def create_player(request: CreatePlayerRequest) -> None:
 
 
 @router.get("/{player_nickname}", status_code=status.HTTP_200_OK, summary="Получить игрока по никнейму")
-async def get_player_by_nickname(player_nickname: str) -> PlayerResponse | None:
+async def get_player_by_nickname(player_nickname: str) -> PlayerResponse:
     try:
         use_case = GetPlayer(dependency_container.player_repository)
         result = await use_case.execute(GetPlayerDTO(nickname=player_nickname))
@@ -29,11 +29,8 @@ async def get_player_by_nickname(player_nickname: str) -> PlayerResponse | None:
 
         if result.data:
             return PlayerResponse(
-                player_id=result.data.player_id,
-                nickname=result.data.nickname,
-                rating=result.data.rating
+                player_id=result.data.player_id, nickname=result.data.nickname, rating=result.data.rating
             )
-        return None
     except DatabaseError as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,

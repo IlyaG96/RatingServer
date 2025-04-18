@@ -1,4 +1,4 @@
-from src.application.use_cases.base import ExceptionWithDetails
+from src.common.excpetion_with_details import ExceptionWithDetails
 
 
 class PlayerNotFoundError(Exception, ExceptionWithDetails):
