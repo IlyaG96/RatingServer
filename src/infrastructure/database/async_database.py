@@ -31,7 +31,7 @@ class SQLAlchemyDataBase:
                 await session.rollback()
                 raise
 
-    async def close(self):
+    async def close(self) -> None:
         """Закрывает пул соединения движка."""
         await self._engine.dispose()
 
