@@ -7,9 +7,9 @@ from configuration import DATABASE_URL
 
 
 class SQLAlchemyDataBase:
-    def __init__(self) -> None:
+    def __init__(self, database_url: str) -> None:
         self._engine: AsyncEngine = create_async_engine(
-            DATABASE_URL,
+            database_url,
             echo=True,
             connect_args={"timeout": 2},
             pool_size=20,
@@ -31,5 +31,9 @@ class SQLAlchemyDataBase:
                 await session.rollback()
                 raise
 
+    async def close(self):
+        """Закрывает пул соединения движка."""
+        await self._engine.dispose()
 
-database = SQLAlchemyDataBase()
+
+database = SQLAlchemyDataBase(DATABASE_URL)

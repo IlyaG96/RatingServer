@@ -1,32 +1,25 @@
-import asyncio
-
-from sqlalchemy.engine.base import Connection
-from sqlalchemy.ext.asyncio import create_async_engine
-
+from sqlalchemy import create_engine
 from alembic import context
+
 from configuration import DATABASE_URL
 from src.infrastructure.database.models.base import Base
 from src.infrastructure.database.models.game import GameModel  # noqa
 from src.infrastructure.database.models.player import PlayerModel  # noqa
 
 config = context.config
-connectable = create_async_engine(DATABASE_URL, echo=True)
+database_url = config.get_main_option("sqlalchemy.url", DATABASE_URL)
+connectable = create_engine(database_url.replace('postgresql+asyncpg',"postgresql+psycopg2" ), echo=True)
 target_metadata = Base.metadata
 
-
-async def run_migrations_online() -> None:
-    async with connectable.connect() as connection:
-        await connection.run_sync(do_run_migrations)
-
-
-def do_run_migrations(connection: Connection) -> None:  # noqa
-    context.configure(connection=connection, target_metadata=target_metadata)
-    with context.begin_transaction():
-        context.run_migrations()
+def run_migrations_online() -> None:
+    with connectable.connect() as connection:
+        context.configure(connection=connection, target_metadata=target_metadata)
+        with context.begin_transaction():
+            context.run_migrations()
 
 
 # Запуск миграций
 if context.is_offline_mode():
-    raise Exception("Offline mode is not supported with asyncpg")
+    raise Exception("Offline mode is not supported")
 else:
-    asyncio.run(run_migrations_online())
+    run_migrations_online()
