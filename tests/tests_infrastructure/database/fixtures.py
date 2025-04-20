@@ -1,13 +1,12 @@
-import asyncio
 from pathlib import Path
 
 import pytest
-from alembic import command
-from alembic.config import Config
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.pool import NullPool
 from testcontainers.postgres import PostgresContainer
 
+from alembic import command
+from alembic.config import Config
 from src.infrastructure.database.async_database import SQLAlchemyDataBase
 from src.infrastructure.database.models.base import Base  # noqa: F401
 

@@ -1,2 +1,0 @@
-from .tests_infrastructure.database.repositories.fixtures import player_repository
-from .tests_infrastructure.database.fixtures import database, postgres_container_url, apply_migrations

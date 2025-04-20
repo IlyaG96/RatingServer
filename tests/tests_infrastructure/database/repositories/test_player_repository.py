@@ -2,15 +2,12 @@ import asyncio
 import logging
 
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.domain.entities.player import Player # Не используется напрямую, но может быть полезно для проверок типов
-from src.domain.value_objects.player.rating import Rating
-from src.domain.value_objects.player.player_id import PlayerId
+from src.domain.exceptions.player import PlayerAlreadyExistsError
 from src.domain.value_objects.player.nickname import Nickname
 from src.domain.value_objects.player.player_creation_data import PlayerCreationData
+from src.domain.value_objects.player.rating import Rating
 from src.infrastructure.database.repositories.player_repository import PlayerRepository
-from src.domain.exceptions.player import PlayerNotFoundError, PlayerAlreadyExistsError
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
